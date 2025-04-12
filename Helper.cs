@@ -6,7 +6,7 @@ namespace EnChat;
 
 public static class Helper
 {
-    private static Assembly Asm = Assembly.GetExecutingAssembly();
+    private static Assembly _asm = Assembly.GetExecutingAssembly();
 
     private static async Task<string> ReadResourceAsync(this Assembly assembly, string name)
     {
@@ -26,7 +26,7 @@ public static class Helper
 
     public static async Task<string> ReadEmbeddedAssets(string name)
     {
-        return await Asm.ReadResourceAsync(name); 
+        return await _asm.ReadResourceAsync(name); 
     }
     public static string ToSha256HexHashString(this string input)
     {

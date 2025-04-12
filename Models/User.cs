@@ -17,4 +17,6 @@ public partial class User
     public string Contacts { get; set; } = null!;
 
     public string Pending { get; set; } = null!;
+
+    public byte[] Profile { get; set; } = null!;
 }
