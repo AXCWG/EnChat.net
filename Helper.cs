@@ -1,11 +1,14 @@
 ﻿using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EnChat;
 
 public static class Helper
 {
-    public static Assembly Asm = Assembly.GetExecutingAssembly();
-    public static async Task<string> ReadResourceAsync(this Assembly assembly, string name)
+    private static Assembly Asm = Assembly.GetExecutingAssembly();
+
+    private static async Task<string> ReadResourceAsync(this Assembly assembly, string name)
     {
         // Determine path
         string resourcePath = name;
@@ -24,5 +27,13 @@ public static class Helper
     public static async Task<string> ReadEmbeddedAssets(string name)
     {
         return await Asm.ReadResourceAsync(name); 
+    }
+    public static string ToSha256HexHashString(this string input)
+    {
+        using var sha256 = SHA256.Create();
+        var bytes = Encoding.UTF8.GetBytes(input);
+        var hash = sha256.ComputeHash(bytes);
+        var hex = BitConverter.ToString(hash).Replace("-", "").ToLower();
+        return hex;
     }
 }
