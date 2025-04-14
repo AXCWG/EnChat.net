@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 using EnChat.Context;
 using EnChat.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -112,7 +113,7 @@ public class User : Controller
     }
 
     [HttpGet]
-    public ActionResult<object> ProfileGet(string uuidDestination)
+    public ActionResult<object> ProfileGet(string uuidDestination, [Required] bool img)
     {
         try
         {
@@ -145,7 +146,13 @@ public class User : Controller
             if (contactObj.Count(i => i.Uuid == uuidSession) == 1 &&
                 contactSub.Count(i => i.Uuid == uuidDestination) == 1)
             {
-                return File(userObj.Profile, "image/png");
+                if (img)
+                {
+                    return File(userObj.Profile, "image/png");
+                }
+
+                return
+                    userObj.Username;
             }
 
             return BadRequest();
