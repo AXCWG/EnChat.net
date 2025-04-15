@@ -13,12 +13,14 @@ public static class UserDeserializationContexts
         
     }
 
-    public class Pending : HttpBodyContexts.SendBaseContext
-    {
-        [JsonPropertyName("date")]
-        public required DateTimeOffset Date { get; set; }
-        [JsonPropertyName("from")]
-        public required string From { get; set; }
-        
-    }
+    // public class Pending : HttpBodyContexts.SendContext
+    // {
+    //     [JsonPropertyName("uuid")]
+    //     public required string Uuid { get; set;  }
+    //     [JsonPropertyName("date")]
+    //     public required DateTimeOffset Date { get; set; }
+    //     [JsonPropertyName("from")]
+    //     public required string From { get; set; }
+    //     
+    // }
 }

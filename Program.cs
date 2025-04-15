@@ -32,7 +32,10 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        
+        builder.WebHost.ConfigureKestrel(c =>
+        {
+            c.Limits.KeepAliveTimeout = TimeSpan.FromSeconds(10);
+        });
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -50,7 +53,14 @@ public class Program
         app.UseSession(); 
 
         app.MapControllers();
+        try
+        {
+            app.Run();
 
-        app.Run();
+        }
+        catch (Exception e)
+        {
+            
+        }
     }
 }
